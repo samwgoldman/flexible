@@ -104,13 +104,13 @@ package com.samgoldmansoftware.components
 					case "element":
 						var children:XMLList = xml.children();
 						for each (var node:XML in children)
-					{
-						var child:UIComponent = parse(node);
-						if (child)
 						{
-							value.addChild(child);
+							var child:UIComponent = parse(node);
+							if (child)
+							{
+								value.addChild(child);
+							}
 						}
-					}
 						break;
 				}
 			}
