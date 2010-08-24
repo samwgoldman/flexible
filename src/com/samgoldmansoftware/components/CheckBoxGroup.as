@@ -326,7 +326,7 @@ class CheckBoxRenderer extends CheckBox implements IItemRenderer
 	public function set data(value:Object):void { _data = value; }
 	
 	private var _dragging:Boolean;
-	public function get dragging():Boolean { return false; }
+	public function get dragging():Boolean { return _dragging; }
 	public function set dragging(value:Boolean):void { _dragging = value; }
 	
 	private var _itemIndex:int;
