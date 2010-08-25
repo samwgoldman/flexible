@@ -33,6 +33,8 @@ package com.samgoldmansoftware.components
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.events.FlexEvent;
+	import mx.events.PropertyChangeEvent;
+	import mx.events.PropertyChangeEventKind;
 	
 	import spark.components.DataGroup;
 	import spark.components.IItemRenderer;
@@ -42,6 +44,7 @@ package com.samgoldmansoftware.components
 	
 	use namespace mx_internal;
 	
+	[Event(name="selectedItemsChange", type="spark.events.ElementExistenceEvent")]
 	public class CheckBoxGroup extends DataGroup
 	{
 		/**
@@ -86,6 +89,11 @@ package com.samgoldmansoftware.components
 			if (_selectedItems === value)
 				return;
 			
+			var event:PropertyChangeEvent = new PropertyChangeEvent("selectedItemsChange");
+			event.kind = PropertyChangeEventKind.UPDATE;
+			event.oldValue = _selectedItems;
+			event.newValue = value;
+			
 			if (_selectedItems)
 			{
 				_selectedItems.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
@@ -99,6 +107,8 @@ package com.samgoldmansoftware.components
 				_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE,
 					selectedItems_collectionChangeHandler, false, 0, true);
 			}
+			
+			dispatchEvent(event);
 		}
 		
 		/**
