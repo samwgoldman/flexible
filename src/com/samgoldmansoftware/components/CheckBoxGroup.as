@@ -44,7 +44,7 @@ package com.samgoldmansoftware.components
 	
 	use namespace mx_internal;
 	
-	[Event(name="selectedItemsChange", type="spark.events.ElementExistenceEvent")]
+	[Event(name="selectedItemsChange", type="spark.events.PropertyChangeEvent")]
 	public class CheckBoxGroup extends DataGroup
 	{
 		/**
@@ -78,7 +78,7 @@ package com.samgoldmansoftware.components
 		 * 
 		 * Those items which are selected will appear as checked.
 		 */
-		[Bindable]
+		[Bindable("selectedItemsChange")]
 		public function get selectedItems():ArrayCollection
 		{
 			return _selectedItems;
@@ -91,8 +91,10 @@ package com.samgoldmansoftware.components
 			
 			var event:PropertyChangeEvent = new PropertyChangeEvent("selectedItemsChange");
 			event.kind = PropertyChangeEventKind.UPDATE;
+			event.property 'selectedItems';
 			event.oldValue = _selectedItems;
 			event.newValue = value;
+			event.source = this;
 			
 			if (_selectedItems)
 			{
