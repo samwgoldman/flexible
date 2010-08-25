@@ -44,6 +44,9 @@ package com.samgoldmansoftware.components
 	
 	public class CheckBoxGroup extends DataGroup
 	{
+		/**
+		 * Constructor
+		 */
 		public function CheckBoxGroup()
 		{
 			super();
@@ -68,7 +71,9 @@ package com.samgoldmansoftware.components
 		//-----------------------------------------------------------------------------------------
 		
 		/**
-		 * Holds the array of Objects from the dataProvider which are selected.
+		 * Specifies the objects from the dataProvider which are selected.
+		 * 
+		 * Those items which are selected will appear as checked.
 		 */
 		[Bindable]
 		public function get selectedItems():ArrayCollection
@@ -173,6 +178,9 @@ package com.samgoldmansoftware.components
 			return LabelUtil.itemToLabel(item, labelField, labelFunction);
 		}
 		
+		/**
+		 *  @private
+		 */
 		override public function updateRenderer(_renderer:IVisualElement, itemIndex:int, data:Object):void
 		{
 			var renderer:IItemRenderer = IItemRenderer(_renderer);
@@ -184,6 +192,9 @@ package com.samgoldmansoftware.components
 			renderer.data = data;
 		}
 		
+		/**
+		 *  @private
+		 */ 
 		override protected function createChildren():void
 		{
 			if (!layout)
@@ -200,6 +211,9 @@ package com.samgoldmansoftware.components
 		// UIComponent Overrides
 		//-----------------------------------------------------------------------------------------
 		
+		/**
+		 *  @private
+		 */
 		override protected function commitProperties():void
 		{
 			super.commitProperties();
@@ -269,6 +283,9 @@ package com.samgoldmansoftware.components
 			invalidateDisplayList();
 		}
 		
+		/**
+		 *  @private
+		 */
 		override mx_internal function dataProvider_collectionChangeHandler(event:CollectionEvent):void
 		{
 			// Remove those items from selectedItems which are removed from the dataProvider.

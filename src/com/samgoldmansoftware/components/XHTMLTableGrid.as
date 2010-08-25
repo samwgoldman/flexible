@@ -32,6 +32,9 @@ package com.samgoldmansoftware.components
 	
 	public class XHTMLTableGrid extends UIComponent
 	{
+		/**
+		 * Constructor
+		 */
 		public function XHTMLTableGrid()
 		{
 			super();
@@ -57,6 +60,9 @@ package com.samgoldmansoftware.components
 		private var _tableXHTML:XML;
 		private var tableXHTMLChanged:Boolean = false;
 		
+		/**
+		 * Specifies the data to be displayed by the XHTMLTableGrid control.
+		 */
 		public function get tableXHTML():XML
 		{
 			return _tableXHTML;
@@ -153,6 +159,9 @@ package com.samgoldmansoftware.components
 		// UIComponent overrides
 		//---------------------------------------------------------------------
 		
+		/**
+		 * @private
+		 */
 		override protected function measure():void
 		{
 			super.measure();
@@ -164,6 +173,9 @@ package com.samgoldmansoftware.components
 			}
 		}
 		
+		/**
+		 * @private
+		 */
 		override protected function commitProperties():void
 		{
 			super.commitProperties();
@@ -179,6 +191,9 @@ package com.samgoldmansoftware.components
 			}
 		}
 		
+		/**
+		 * @private
+		 */
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 		{
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
