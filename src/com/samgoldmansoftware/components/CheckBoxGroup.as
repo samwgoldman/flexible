@@ -265,16 +265,6 @@ package com.samgoldmansoftware.components
 			{
 				case CollectionEventKind.ADD:
 				case CollectionEventKind.REMOVE:
-					n = event.items.length;
-					for (i = 0; i < n; i++)
-					{
-						renderer = getElementAt(dataProvider.getItemIndex(event.items[i])) as IItemRenderer;
-						if (renderer)
-						{
-							renderer.selected = selectedItems.getItemIndex(renderer.data) != -1;
-						}
-					}
-					break;
 				case CollectionEventKind.REFRESH:
 				case CollectionEventKind.RESET:
 					n = numElements;
