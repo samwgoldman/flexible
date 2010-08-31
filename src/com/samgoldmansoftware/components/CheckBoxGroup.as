@@ -167,6 +167,16 @@ package com.samgoldmansoftware.components
 		// Methods
 		//-----------------------------------------------------------------------------------------
 		
+		public function selectAll():void
+		{
+			selectedItems.source = dataProvider.toArray();
+		}
+		
+		public function deselectAll():void
+		{
+			selectedItems.source = [];
+		}
+		
 		private function updateRendererLabelProperty(itemIndex:int):void
 		{
 			var renderer:IItemRenderer = IItemRenderer(getElementAt(itemIndex));
