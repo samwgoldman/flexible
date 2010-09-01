@@ -27,6 +27,7 @@ package com.samgoldmansoftware.components
 	import flash.events.Event;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.IList;
 	import mx.core.ClassFactory;
 	import mx.core.IVisualElement;
 	import mx.core.mx_internal;
@@ -36,8 +37,8 @@ package com.samgoldmansoftware.components
 	import mx.events.PropertyChangeEvent;
 	import mx.events.PropertyChangeEventKind;
 	
-	import spark.components.DataGroup;
 	import spark.components.IItemRenderer;
+	import spark.components.SkinnableDataContainer;
 	import spark.events.RendererExistenceEvent;
 	import spark.layouts.VerticalLayout;
 	import spark.utils.LabelUtil;
@@ -45,7 +46,7 @@ package com.samgoldmansoftware.components
 	use namespace mx_internal;
 	
 	[Event(name="selectedItemsChange", type="spark.events.PropertyChangeEvent")]
-	public class CheckBoxGroup extends DataGroup
+	public class CheckBoxGroup extends SkinnableDataContainer
 	{
 		/**
 		 * Constructor
@@ -72,6 +73,26 @@ package com.samgoldmansoftware.components
 		//-----------------------------------------------------------------------------------------
 		// Properties
 		//-----------------------------------------------------------------------------------------
+		
+		/**
+		 * @inheritDoc
+		 */
+		override public function set dataProvider(value:IList):void
+		{
+			if (dataProvider)
+			{
+				dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
+					dataProvider_collectionChangedHandler);
+			}
+			
+			super.dataProvider = value;
+			
+			if (dataProvider)
+			{
+				dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE,
+					dataProvider_collectionChangedHandler, false, 0, true);
+			}
+		}
 		
 		/**
 		 * Specifies the objects from the dataProvider which are selected.
@@ -179,7 +200,7 @@ package com.samgoldmansoftware.components
 		
 		private function updateRendererLabelProperty(itemIndex:int):void
 		{
-			var renderer:IItemRenderer = IItemRenderer(getElementAt(itemIndex));
+			var renderer:IItemRenderer = IItemRenderer(dataGroup.getElementAt(itemIndex));
 			if (renderer)
 			{
 				renderer.label = itemToLabel(renderer.data); 
@@ -203,15 +224,17 @@ package com.samgoldmansoftware.components
 		/**
 		 *  @private
 		 */
-		override public function updateRenderer(_renderer:IVisualElement, itemIndex:int, data:Object):void
+		override public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
 		{
-			var renderer:IItemRenderer = IItemRenderer(_renderer);
+			super.updateRenderer(renderer, itemIndex, data);
+			
 			renderer.removeEventListener(Event.CHANGE, renderer_changeHandler);
 			renderer.addEventListener(Event.CHANGE, renderer_changeHandler, false, 0, true);
-			renderer.owner = this;
-			renderer.selected = selectedItems.getItemIndex(data) != -1;
-			renderer.label = itemToLabel(data);
-			renderer.data = data;
+			
+			if (renderer is IItemRenderer)
+			{
+				IItemRenderer(renderer).selected = selectedItems.getItemIndex(data) != -1;
+			}
 		}
 		
 		/**
@@ -242,7 +265,7 @@ package com.samgoldmansoftware.components
 			
 			if (labelFieldOrFunctionChanged)
 			{
-				var n:int = numElements;
+				var n:int = dataGroup.numElements;
 				for (var i:int = 0; i < n; i++)
 				{
 					updateRendererLabelProperty(i);
@@ -279,10 +302,10 @@ package com.samgoldmansoftware.components
 				case CollectionEventKind.REMOVE:
 				case CollectionEventKind.REFRESH:
 				case CollectionEventKind.RESET:
-					n = numElements;
+					n = dataGroup.numElements;
 					for (i = 0; i < n; i++)
 					{
-						renderer = getElementAt(i) as IItemRenderer;
+						renderer = dataGroup.getElementAt(i) as IItemRenderer;
 						if (renderer)
 						{
 							renderer.selected = selectedItems.getItemIndex(renderer.data) != -1;
@@ -298,7 +321,7 @@ package com.samgoldmansoftware.components
 		/**
 		 *  @private
 		 */
-		override mx_internal function dataProvider_collectionChangeHandler(event:CollectionEvent):void
+		private function dataProvider_collectionChangedHandler(event:CollectionEvent):void
 		{
 			// Remove those items from selectedItems which are removed from the dataProvider.
 			var i:int, n:int, index:int;
@@ -330,8 +353,6 @@ package com.samgoldmansoftware.components
 					break;
 			}
 			selectedItems.enableAutoUpdate();
-			
-			super.dataProvider_collectionChangeHandler(event);
 		}
 	}
 }
