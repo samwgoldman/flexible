@@ -55,8 +55,6 @@ package com.samgoldmansoftware.components
 			itemRenderer = new ClassFactory(CheckBoxRenderer);
 			
 			selectedItems = new ArrayCollection();
-			
-			setStyle("skinClass", CheckBoxGroupSkin);
 		}
 		
 		//-----------------------------------------------------------------------------------------

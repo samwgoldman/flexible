@@ -5,6 +5,8 @@
     <classEntry path="com.samgoldmansoftware.components.XHTMLTableGrid"/>
     <classEntry path="com.samgoldmansoftware.skins.CheckBoxGroupSkin"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="defaults.css" sourcePath="defaults.css"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>
