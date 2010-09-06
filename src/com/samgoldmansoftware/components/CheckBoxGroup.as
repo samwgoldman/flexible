@@ -24,6 +24,8 @@
 
 package com.samgoldmansoftware.components
 {
+	import com.samgoldmansoftware.skins.CheckBoxGroupSkin;
+	
 	import flash.events.Event;
 	
 	import mx.collections.ArrayCollection;
@@ -33,13 +35,12 @@ package com.samgoldmansoftware.components
 	import mx.core.mx_internal;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
-	import mx.events.FlexEvent;
 	import mx.events.PropertyChangeEvent;
 	import mx.events.PropertyChangeEventKind;
 	
 	import spark.components.IItemRenderer;
+	import spark.components.Scroller;
 	import spark.components.SkinnableDataContainer;
-	import spark.events.RendererExistenceEvent;
 	import spark.layouts.VerticalLayout;
 	import spark.utils.LabelUtil;
 	
@@ -58,6 +59,8 @@ package com.samgoldmansoftware.components
 			itemRenderer = new ClassFactory(CheckBoxRenderer);
 			
 			selectedItems = new ArrayCollection();
+			
+			setStyle("skinClass", CheckBoxGroupSkin);
 		}
 		
 		//-----------------------------------------------------------------------------------------
@@ -69,6 +72,13 @@ package com.samgoldmansoftware.components
 		private var _labelField:String;
 		private var _labelFunction:Function;
 		private var labelFieldOrFunctionChanged:Boolean = false;
+		
+		//-----------------------------------------------------------------------------------------
+		// Skin Parts
+		//-----------------------------------------------------------------------------------------
+		
+		[SkinPart(required="false")]
+		public var scroller:Scroller;
 		
 		//-----------------------------------------------------------------------------------------
 		// Properties
@@ -323,6 +333,9 @@ package com.samgoldmansoftware.components
 		 */
 		private function dataProvider_collectionChangedHandler(event:CollectionEvent):void
 		{
+			if (!selectedItems)
+				return;
+				
 			// Remove those items from selectedItems which are removed from the dataProvider.
 			var i:int, n:int, index:int;
 			selectedItems.disableAutoUpdate();

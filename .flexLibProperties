@@ -3,6 +3,7 @@
   <includeClasses>
     <classEntry path="com.samgoldmansoftware.components.CheckBoxGroup"/>
     <classEntry path="com.samgoldmansoftware.components.XHTMLTableGrid"/>
+    <classEntry path="com.samgoldmansoftware.skins.CheckBoxGroupSkin"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
