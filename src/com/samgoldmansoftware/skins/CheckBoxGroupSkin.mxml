@@ -17,6 +17,10 @@
     -->
     <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
 	<s:Scroller id="scroller" left="0" right="0" top="0" bottom="0" minWidth="0" minHeight="0">
-		<s:DataGroup id="dataGroup" />
+		<s:DataGroup id="dataGroup">
+			<s:layout>
+				<s:VerticalLayout gap="0" />
+			</s:layout>
+		</s:DataGroup>
 	</s:Scroller>
 </s:Skin>

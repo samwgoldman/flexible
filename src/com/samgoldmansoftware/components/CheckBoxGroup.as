@@ -32,7 +32,6 @@ package com.samgoldmansoftware.components
 	import mx.collections.IList;
 	import mx.core.ClassFactory;
 	import mx.core.IVisualElement;
-	import mx.core.mx_internal;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.events.PropertyChangeEvent;
@@ -41,10 +40,7 @@ package com.samgoldmansoftware.components
 	import spark.components.IItemRenderer;
 	import spark.components.Scroller;
 	import spark.components.SkinnableDataContainer;
-	import spark.layouts.VerticalLayout;
 	import spark.utils.LabelUtil;
-	
-	use namespace mx_internal;
 	
 	[Event(name="selectedItemsChange", type="spark.events.PropertyChangeEvent")]
 	public class CheckBoxGroup extends SkinnableDataContainer
@@ -245,21 +241,6 @@ package com.samgoldmansoftware.components
 			{
 				IItemRenderer(renderer).selected = selectedItems.getItemIndex(data) != -1;
 			}
-		}
-		
-		/**
-		 *  @private
-		 */ 
-		override protected function createChildren():void
-		{
-			if (!layout)
-			{
-				var layout:VerticalLayout = new VerticalLayout();
-				layout.gap = 0;
-				this.layout = layout;
-			}
-			
-			super.createChildren();
 		}
 		
 		//-----------------------------------------------------------------------------------------
