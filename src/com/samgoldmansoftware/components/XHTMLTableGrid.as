@@ -49,8 +49,8 @@ package com.samgoldmansoftware.components
 		private var xhtmlTableToGridMap:Object = {
 			"table": Grid,
 			"tr": GridRow,
-			"td": GridItem,
-			"th": GridItem
+			"td": createGridItem,
+			"th": createGridItem
 		};
 		
 		//---------------------------------------------------------------------
@@ -153,6 +153,20 @@ package com.samgoldmansoftware.components
 			}
 			
 			return value;
+		}
+		
+		private function createGridItem(xml:XML):GridItem
+		{
+			var item:GridItem = new GridItem();
+			if (xml.hasOwnProperty("@rowspan"))
+			{
+				item.rowSpan = int(xml.@rowspan);
+			}
+			if (xml.hasOwnProperty("@colspan"))
+			{
+				item.colSpan = int(xml.@colspan);
+			}
+			return item;
 		}
 		
 		//---------------------------------------------------------------------
